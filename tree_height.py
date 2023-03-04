@@ -28,7 +28,7 @@ def main():
             text.close()
             sep = text1.partition("\n")
             n = int(sep[0])
-            parents = sep[2].split()
+            parents = sep[2].split(" ")
             print (compute_height(n, parents))
     elif "I" in cmd:
         n = int(input())
