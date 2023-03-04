@@ -24,6 +24,7 @@ def compute_height(node):
         heightlist.append(compute_height(child))
     return max(heightlist, default=0)+1
 
+
 def main():
     cmd = input()
     if "F" in cmd:
