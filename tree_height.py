@@ -22,7 +22,14 @@ def main():
     if "F" in cmd:
         file_path = input()
         path = "test/"+file_path
-        #if not "a" in file_path:
+        if not "a" in file_path:
+            text = open(path)
+            text1 = text.read()
+            text.close()
+            sep = text1.partition("\n")
+            n = int(sep[0])
+            parents = sep[2].split()
+            print (compute_height(n, parents))
     elif "I" in cmd:
         n = int(input())
         parents = list(map(int, input().split()))
