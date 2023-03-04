@@ -16,7 +16,6 @@ def compute_height(n, parents):
         max_height = max(max_height, height)
     return max_height
 
-
 def main():
     cmd = input()
     if "F" in cmd:
