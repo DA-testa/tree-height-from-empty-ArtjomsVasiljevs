@@ -7,11 +7,27 @@ import threading
 def compute_height(n, parents):
     # Write this function
     max_height = 0
-    # Your code here
+    for v in range(n):
+        height = 0
+        cur = v 
+        while cur != -1:
+            height += 1
+            cur = parents[cur]
+        max_height = max(max_height, height)
     return max_height
 
 
 def main():
+    cmd = input()
+    if "F" in cmd:
+        file_path = input()
+        path = "test/"+file_path
+        #if not "a" in file_path:
+    elif "I" in cmd:
+        n = int(input())
+        parents = list(map(int, input().split()))
+        print(compute_height(n, parents))
+
     # implement input form keyboard and from files
     
     # let user input file name to use, don't allow file names with letter a
