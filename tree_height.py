@@ -1,17 +1,56 @@
 # python3
-
+# 221RDB330 Artjoms Vasiļjevs 17.grupa
 import sys
 import threading
+import numpy
 
 
-def compute_height(n, parents):
-    # Write this function
-    max_height = 0
-    # Your code here
-    return max_height
 
+def build_tree(n, parents):
+    tree = {}
+    for i in range(n):
+        parent = parents[i]
+        if parent == -1:
+            root = i
+        else:
+            if parent not in tree:
+                tree[parent] = []
+            tree[parent].append(i)
+    return tree, root
+
+
+def compute_height(tree, root):
+    if root not in tree:
+        return 0
+    height = 0
+    for child in tree[root]:
+        height = max(height, compute_height(tree, child))
+    return height + 1 
 
 def main():
+    cmd = input()
+    if "F" in cmd:
+        file_path = input()
+        path = "test/"+file_path
+        if not "a" in file_path:
+            text = open(path)
+            text1 = text.read()
+            text.close()
+            sep = text1.partition("\n")
+            n = int(sep[0])
+            parents_1 = sep[2].split(" ")
+            parents = ([int(x) for x in parents_1])
+            
+            tree, root = build_tree(n, parents)
+            height = compute_height(tree, root)
+            print(height + 1)
+            
+    elif "I" in cmd:
+        n = int(input())
+        parents = list(map(int, input().split()))
+        tree, root = build_tree(n, parents)
+        height = compute_height(tree, root)
+        print(height + 1)
     # implement input form keyboard and from files
     
     # let user input file name to use, don't allow file names with letter a
