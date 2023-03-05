@@ -4,17 +4,28 @@ import sys
 import threading
 import numpy
 
-def compute_height(n, parents):
-    # Write this function
-    max_height = 0
-    for v in range(n):
-        height = 0
-        cur = v 
-        while cur != -1:
-            height += 1
-            cur = parents[cur]
-        max_height = max(max_height, height)
-    return max_height
+
+
+def build_tree(n, parents):
+    tree = {}
+    for i in range(n):
+        parent = parents[i]
+        if parent == -1:
+            root = i
+        else:
+            if parent not in tree:
+                tree[parent] = []
+            tree[parent].append(i)
+    return tree, root
+
+
+def compute_height(tree, root):
+    if root not in tree:
+        return 0
+    height = 0
+    for child in tree[root]:
+        height = max(height, compute_height(tree, child))
+    return height + 1 
 
 def main():
     cmd = input()
@@ -29,12 +40,17 @@ def main():
             n = int(sep[0])
             parents_1 = sep[2].split(" ")
             parents = ([int(x) for x in parents_1])
-            print (compute_height(n, parents))
+            
+            tree, root = build_tree(n, parents)
+            height = compute_height(tree, root)
+            print(height + 1)
+            
     elif "I" in cmd:
         n = int(input())
         parents = list(map(int, input().split()))
-        print(compute_height(n, parents))
-
+        tree, root = build_tree(n, parents)
+        height = compute_height(tree, root)
+        print(height + 1)
     # implement input form keyboard and from files
     
     # let user input file name to use, don't allow file names with letter a
