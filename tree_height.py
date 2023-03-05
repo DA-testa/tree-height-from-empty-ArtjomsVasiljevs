@@ -6,7 +6,6 @@ import numpy
 
 def compute_height(n, parents):
     # Write this function
-
     max_height = 0
     for v in range(n):
         height = 0
@@ -52,4 +51,3 @@ def main():
 sys.setrecursionlimit(10**7)  # max depth of recursion
 threading.stack_size(2**27)   # new thread will get stack of such size
 threading.Thread(target=main).start()
-main()
