@@ -1,5 +1,5 @@
 # python3
-
+# 221RDB330 Artjoms Vasiļjevs 17.grupa
 import sys
 import threading
 import numpy
