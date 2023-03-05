@@ -4,26 +4,18 @@ import sys
 import threading
 import numpy
 
-class nodes:
-    def __init__(self, parent, child=None):
-        self.parent = parent
-        self.child = child
-
-    def add(self, node):
-        if self.child is None:
-            self.child = []
-        self.child.append(node)
-
-def compute_height(node):
+def compute_height(n, parents):
     # Write this function
-    if node.child is None:
-        return 0
-    child1 = node.child
-    heightlist = []
-    for child in child1:
-        heightlist.append(compute_height(child))
-    return max(heightlist, default=0)+1
 
+    max_height = 0
+    for v in range(n):
+        height = 0
+        cur = v 
+        while cur != -1:
+            height += 1
+            cur = parents[cur]
+        max_height = max(max_height, height)
+    return max_height
 
 def main():
     cmd = input()
@@ -38,42 +30,11 @@ def main():
             n = int(sep[0])
             parents_1 = sep[2].split(" ")
             parents = ([int(x) for x in parents_1])
-            node_l = []
-            for i in range(n):
-                node_l.append(nodes(parents[i]))
-            for child_index in range(n):
-                parent_index = parents[child_index]
-                if parent_index == -1:
-                    root = child_index
-                else:
-                    node_l[parent_index].add(node_l[child_index])
-
-            if len(node_l) == 0:
-                return 0
-    
-            height = compute_height(node_l[root]) + 1
-    
-            print(height)
-
+            print (compute_height(n, parents))
     elif "I" in cmd:
         n = int(input())
         parents = list(map(int, input().split()))
-        node_l = []
-        for i in range(n):
-                node_l.append(nodes(parents[i]))
-        for child_index in range(n):
-            parent_index = parents[child_index]
-            if parent_index == -1:
-                root = child_index
-            else:
-                node_l[parent_index].add(node_l[child_index])
-
-        if len(node_l) == 0:
-            return 0
-    
-        height = compute_height(node_l[root]) + 1
-    
-        print(height)
+        print(compute_height(n, parents))
 
     # implement input form keyboard and from files
     
